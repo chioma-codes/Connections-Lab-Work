@@ -1,0 +1,21 @@
+h1{
+    color: fuchsia;
+    font-size: 40px;
+}
+h2{
+    color: #fae27a;
+}
+
+h1, h2, p {
+    text-align: center;
+}
+
+ html, body {
+ height: 100%;
+    margin: 0;
+    background-color: #F0BBEC;
+    cursor: url('billiard_cursor_cropped.png'), auto;
+     
+ }
+
+ 
