@@ -1,0 +1,58 @@
+
+.mea-culpa-regular {
+    font-family: "Mea Culpa", cursive;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.mea-culpa-regular {
+    font-family: "Mea Culpa", cursive;
+    font-weight: 400;
+    font-style: normal;
+}
+
+html, body {
+    padding: 20px;
+    background-color: #ffffff;
+    font-family: Arial, sans-serif;
+}
+
+.project_heading {
+    font-family: Arial, sans-serif;
+    font-size: 20px;
+    color: black;
+    text-align: center;
+}
+
+.project_heading2 {
+    font-family: Arial, sans-serif;
+    font-size: 15px;
+    color: black;
+    text-align: center;
+}
+
+.shirt_image {
+    width: 900px;
+    display: block;
+    margin: 0 auto;
+}
+
+#EnterButton {
+    font-size: 20px;
+    padding: 10px 20px;
+    margin: 10px;
+    margin-top: 20px;
+}
+
+.Steve {
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.Village_Steve {
+    width: 1000px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}

@@ -1,0 +1,30 @@
+.mea-culpa-regular {
+    font-family: "Mea Culpa", cursive;
+    font-weight: 400;
+    font-style: normal;
+}
+
+html, body {
+    padding: 2px;
+    background-color: #ffffff;
+    text-align: center;
+}
+
+.project_heading {
+    font-family: "Mea Culpa", cursive;
+    font-size: 25px;
+    color: black;
+}
+
+.shirt_image {
+    width: 900px;
+    display: block; 
+    margin: 0 auto; 
+}
+
+#EnterButton {
+    font-size: 20px;
+    padding: 10px 20px;
+    margin: 10px;
+    margin-top: 20px;
+}
