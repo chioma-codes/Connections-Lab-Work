@@ -1,0 +1,48 @@
+{
+  "exes": [
+    {
+      "name": "Stevie",
+      "image": "STEVIE.png",
+      "neighborhood": "East Village",
+      "age": 30,
+      "job": "Doctor",
+      "religion": "Greek Orthodox",
+      "our_eat_spot": "San Marazano",
+      "most_loved_music_genre": "Alt Rock",
+      "most_listened_to_breakup_song": "Black - Pearl Jam"
+    },
+    {
+      "name": "Danny",
+      "image": "DANNY.png",
+      "neighborhood": "Crown Heights",
+      "age": 29,
+      "job": "Media Editor",
+      "religion": "Irish Catholic",
+      "our_eat_spot": "Patsy's",
+      "most_loved_music_genre": "Soft Psychadelia, Alt, R&B",
+      "most_listened_to_breakup_song": "cz - Mk.gee"
+    },
+    {
+      "name": "Gabey",
+      "neighborhood": "Upper West Side",
+      "image": "GABEY.png",
+      "age": 27,
+      "job": "Sales Engineer",
+      "religion": "Jewish",
+      "our_eat_spot": "Misi",
+      "most_loved_music_genre": "Jazz, R&B",
+      "most_listened_to_breakup_song": "In My Room - Julia Wolf"
+    },
+    {
+      "name": "Mr. Josh",
+      "image": "JOSH.png",
+      "neighborhood": "Boerum Hill",
+      "age": 29,
+      "job": "Teacher/Grad Student (professional douchebag)",
+      "religion": "Jewish",
+      "our_eat_spot": "some random expensive sushi spot",
+      "most_loved_music_genre": "Jazz, R&B, Soul",
+      "most_listened_to_breakup_song": "Work in Progress - Hailey Knox"
+    }
+  ]
+}

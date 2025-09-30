@@ -6,7 +6,7 @@
 
 html, body {
     padding: 2px;
-    background-color: #ffffff;
+    background-color: #FFE6EE;
     text-align: center;
 }
 
@@ -16,10 +16,11 @@ html, body {
     color: black;
 }
 
-.shirt_image {
+.shirt_imageFloat {
     width: 900px;
     display: block; 
-    margin: 0 auto; 
+    margin: 0 auto;
+    animation: float 3s ease-in-out infinite;
 }
 
 #EnterButton {
@@ -27,4 +28,14 @@ html, body {
     padding: 10px 20px;
     margin: 10px;
     margin-top: 20px;
+}
+
+.Love_Shirt {
+    animation: float 3s ease-in-out infinite;
+
+}
+@keyframes float { /* I took this float code from this website https://get.corner.inc/ THank you Queenie */
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+    100% { transform: translateY(0px); }
 }

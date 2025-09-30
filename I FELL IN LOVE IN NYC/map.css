@@ -1,10 +1,3 @@
-
-.mea-culpa-regular {
-    font-family: "Mea Culpa", cursive;
-    font-weight: 400;
-    font-style: normal;
-}
-
 .mea-culpa-regular {
     font-family: "Mea Culpa", cursive;
     font-weight: 400;
@@ -13,46 +6,103 @@
 
 html, body {
     padding: 20px;
-    background-color: #ffffff;
-    font-family: Arial, sans-serif;
+    background-color: #FFE6EE;
+    text-align: center;
 }
 
 .project_heading {
-    font-family: Arial, sans-serif;
-    font-size: 20px;
-    color: black;
+    font-family: "Mea Culpa", cursive;
+    font-size: 50px;
+    color: rgb(242, 92, 182);
     text-align: center;
 }
 
-.project_heading2 {
-    font-family: Arial, sans-serif;
-    font-size: 15px;
-    color: black;
-    text-align: center;
+#map { 
+    width: 100%;
+    height: 600px; 
+    filter: hue-rotate(300deg) saturate(0.9) brightness(1.1) contrast(100%);
 }
 
-.shirt_image {
-    width: 900px;
-    display: block;
-    margin: 0 auto;
+/* right side info box*/
+.info { 
+    padding: 10px 12px;
+    font: 14px/16px Arial, Helvetica, sans-serif;
+    background: white;
+    box-shadow: 0 0 100px rgb(242, 92, 182);
+    border-radius: 5px;
+    border: 3px solid #333;
+    min-width: 250px;
+    max-width: 350px;
 }
 
-#EnterButton {
-    font-size: 20px;
-    padding: 10px 20px;
-    margin: 10px;
-    margin-top: 20px;
+/* ex name in box*/
+.info h4 { 
+    margin: 0 0 10px;
+    color: #000;
+    font-size: 18px;
+    border-bottom: 2px solid #FFC0CB;
+    padding-bottom: 5px;
 }
 
-.Steve {
-    display: block;
-    margin: 0 auto;
-    text-align: center;
+/* data from json file*/
+.ex-details { 
+    margin-top: 8px;
 }
 
-.Village_Steve {
+.ex-details p {
+    margin: 5px 0;
+    line-height: 1.4;
+    font-size: 13px;
+}
+
+.ex-details strong {
+    color: #333;
+    font-weight: bold;
+}
+
+/* Image of guys polygons */
+.image-popup {
+    position: fixed;        
+    left: 80px;            /* keeps my image on the left */
+    top: 50%;              
+    transform: translateY(-50%);  
+    z-index: 2000;         /* this is the layering fuction, so my guy polygons will lay on top of everything */
+    opacity: 0;           
+    transition: opacity 0.5s ease;  /* Makes it fade in/out smoothly over 0.5 seconds */
+    pointer-events: none;  /* You can't accidentally click on it */
+     transition: opacity 0.5s ease, transform 0.5s ease;
+    transform: translateY(-50%) scale(0.8);
+}
+
+/* makes so it won't appear before you hover aka invisibility cloak lol */
+.image-popup.show {
+    opacity: 1;            
+    transform: translateY(-50%) scale(1); /*fade*/
+}
+
+.image-popup img {
+    max-width: 3700px;      
+    max-height: 500px;     
+    display: block;        
+}
+
+.image-popup .image-caption {
+    display: none; /* this liteally sucks but when i delete it it deletes everything and I am too tired to troubleshoot why*/
+}
+
+/* /* .Village_Steve {
     width: 1000px;
     height: auto;
     display: block;
-    margin: 0 auto;
-}
+    /* margin: 0 auto; */
+/* } */
+
+/* .steve-float {
+    animation: float 3s ease-in-out infinite; */
+/* } */
+
+
+/* @keyframes float { /* I took this float code from this website https://get.corner.inc/ THank you Queenie */
+    /* 0% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+    100% { transform: translateY(0px); } */ 

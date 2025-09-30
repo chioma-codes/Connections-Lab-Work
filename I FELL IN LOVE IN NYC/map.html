@@ -1,19 +1,318 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
+    <title>NEW YORK LOVER</title>
+    
+   <!-- my fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Mea+Culpa&display=swap" rel="stylesheet">
-    <meta charset="UTF-8">
-    <title>NEW YORK LOVER</title>
+    
+    <!-- Leaflet stuff -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+          crossorigin=""/>
+    
+    <!-- my css -->
     <link href="map.css" rel="stylesheet"/>
 </head>
 <body>
-    <h1 class="project_heading">Pretend there is a map full map of Manhattan here</h1>
-<h2 class="project_heading2">For now you get Steve in the East Village...</h2>
+    <h1 class="project_heading">Manhattan is for Lovers & Some Parts of Brooklyn</h1>
+    <div id="map"></div>
+
+    <!--Boys pop up container aka jumpscare -->
+    <div id="imagePopup" class="image-popup">
+        <img id="popupImage" src="" alt="">
+        <div id="imageCaption" class="image-caption"></div>
+    </div>
     
-    <section class="Steve">
-        <img class="Village_Steve" src="EV_SC.png" alt="eastvillage and steve"/>
-    </section>
+    <!-- Leaflet JavaScript -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+            crossorigin=""></script>
+
+   <!-- there goes my map bb -->
+    <script>
+        // Initialize the map , the last number is the zooooooooom zoooom
+        var map = L.map('map').setView([40.7400, -74.0000], 11.5);
+        
+        // Add OpenStreetMap tile layer to display the actual map
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        var exData = null;
+
+        // Function to load ex data from boys.json
+        fetch('boys.json')
+            .then(response => response.json())
+            .then(data => {
+                exData = data;
+                console.log('Boys data loaded successfully!');
+            })
+            .catch(error => {
+                console.error('Error loading boys.json:', error);
+
+                //json data in case file doesn't load
+                exData = {
+                    "exes": [
+                        {
+                            "name": "Stevie",
+                            "image": "STEVIE.png",
+                            "neighborhood": "East Village",
+                            "age": 30,
+                            "job": "Doctor",
+                            "religion": "Greek Orthodox",
+                            "our_eat_spot": "San Marazano",
+                            "most_loved_music_genre": "Alt Rock",
+                            "most_listened_to_breakup_song": "Black - Pearl Jam"
+                        },
+                        {
+                            "name": "Danny",
+                            "image": "DANNY.png",
+                            "neighborhood": "Crown Heights",
+                            "age": 29,
+                            "job": "Media Editor",
+                            "religion": "Irish Catholic",
+                            "our_eat_spot": "Patsy's",
+                            "most_loved_music_genre": "Soft Psychadelia, Alt, R&B",
+                            "most_listened_to_breakup_song": "cz - Mk.gee"
+                        },
+                        {
+                            "name": "Gabey",
+                            "image": "GABEY.png",
+                            "neighborhood": "Upper West Side",
+                            "age": 27,
+                            "job": "Sales Engineer",
+                            "religion": "Jewish",
+                            "our_eat_spot": "Misi",
+                            "most_loved_music_genre": "Jazz, R&B",
+                            "most_listened_to_breakup_song": "In My Room - Julia Wolf"
+                        },
+                        {
+                            "name": "Mr. Josh",
+                            "image": "JOSH.png",
+                            "neighborhood": "Boerum Hill",
+                            "age": 29,
+                            "job": "Teacher/Grad Student (professional douchebag)",
+                            "religion": "Jewish",
+                            "our_eat_spot": "some random expensive sushi spot",
+                            "most_loved_music_genre": "Jazz, R&B, Soul",
+                            "most_listened_to_breakup_song": "Work in Progress - Hailey Knox"
+                        }
+                    ]
+                };
+            });
+
+        // Function to find ex data by neighborhood
+        function getExByNeighborhood(neighborhoodName) {
+            if (!exData || !exData.exes) return null;
+            return exData.exes.find(ex => ex.neighborhood === neighborhoodName);
+        }
+
+        // Function to show image popup of guy
+        function showImagePopup(neighborhoodName) {
+            var ex = getExByNeighborhood(neighborhoodName);
+            if (ex && ex.image) {
+                var popup = document.getElementById('imagePopup');
+                var img = document.getElementById('popupImage');
+                var caption = document.getElementById('imageCaption');
+                
+                img.src = 'boy_polygons/' + ex.image;
+                img.alt = ex.name;
+                caption.textContent = ex.name;
+                
+                popup.classList.add('show');
+            }
+        }
+
+        // Function to hide image popup of boy
+        function hideImagePopup() {
+            var popup = document.getElementById('imagePopup');
+            popup.classList.remove('show');
+        }
+
+        // neighborhood polygons 
+        var selectedNeighborhoods = {
+            "type": "FeatureCollection",
+            "features": [
+                {
+                    "type": "Feature",
+                    "properties": {
+                        "name": "Crown Heights",
+                        "borough": "Brooklyn"
+                    },
+                    "geometry": {
+                        "type": "Polygon",
+                        "coordinates": [[
+                            [-73.9439, 40.6782],
+                            [-73.9319, 40.6782],
+                            [-73.9319, 40.6642],
+                            [-73.9439, 40.6642],
+                            [-73.9439, 40.6782]
+                        ]]
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "properties": {
+                        "name": "East Village",
+                        "borough": "Manhattan"
+                    },
+                    "geometry": {
+                        "type": "Polygon",
+                        "coordinates": [[
+                            [-73.9939, 40.7309],
+                            [-73.9799, 40.7309],
+                            [-73.9799, 40.7219],
+                            [-73.9939, 40.7219],
+                            [-73.9939, 40.7309]
+                        ]]
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "properties": {
+                        "name": "Upper West Side",
+                        "borough": "Manhattan"
+                    },
+                    "geometry": {
+                        "type": "Polygon",
+                        "coordinates": [[
+                            [-73.9819, 40.7939],
+                            [-73.9639, 40.7939],
+                            [-73.9639, 40.7679],
+                            [-73.9819, 40.7679],
+                            [-73.9819, 40.7939]
+                        ]]
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "properties": {
+                        "name": "Boerum Hill",
+                        "borough": "Brooklyn"
+                    },
+                    "geometry": {
+                        "type": "Polygon",
+                        "coordinates": [[
+                            [-73.9939, 40.6909],
+                            [-73.9819, 40.6909],
+                            [-73.9819, 40.6829],
+                            [-73.9939, 40.6829],
+                            [-73.9939, 40.6909]
+                        ]]
+                    }
+                }
+            ]
+        };
+
+        // Function to style each neighborhood polygon
+        function styleNeighborhoods(feature) {
+            return {
+                fillColor: getColor(feature.properties.name),
+                weight: 4,
+                opacity: 3,
+                color: '#333',          // Border color of polygon 
+                dashArray: '',
+                fillOpacity: 0.3        // Semi-transparent fill
+            };
+        }
+
+        // Function to assign colors to neighborhood polygons
+        function getColor(neighborhoodName) {
+           
+            var colors = ['#666', '#888', '#AAA', '#CCC'];
+            var hash = 0;
+            for (var i = 0; i < neighborhoodName.length; i++) {
+                hash = neighborhoodName.charCodeAt(i) + ((hash << 5) - hash);
+            }
+            return colors[Math.abs(hash) % colors.length];
+        }
+
+        // Highlight neighborhood on hover - plus the boy polygon
+        function highlightFeature(e) {
+            var layer = e.target;
+            layer.setStyle({
+                weight: 4,
+                color: '#000',          // border
+                dashArray: '',
+                fillColor: '#f25cb6',   
+                fillOpacity: 0.7        
+            });
+            layer.bringToFront();
+            
+            // Show neighborhood name and info
+            info.update(layer.feature.properties);
+            
+            // Shows image popup
+            showImagePopup(layer.feature.properties.name);
+        }
+
+        // Reset highlight when mouse moves away
+        function resetHighlight(e) {
+            geojsonLayer.resetStyle(e.target);
+            info.update();
+            
+            // Hide image popup
+            hideImagePopup();
+        }
+
+        // Zoom to neighborhood when clicked
+        function zoomToFeature(e) {
+            map.fitBounds(e.target.getBounds());
+        }
+
+        // Function to handle what happens when you interact with a neighborhood
+        function onEachNeighborhood(feature, layer) {
+            layer.on({
+                mouseover: highlightFeature,
+                mouseout: resetHighlight,
+                click: zoomToFeature
+            });
+        }
+
+        // Adds 4 neighborhoods to the map
+        var geojsonLayer = L.geoJSON(selectedNeighborhoods, {
+            style: styleNeighborhoods,
+            onEachFeature: onEachNeighborhood
+        }).addTo(map);
+
+        // Add an info box to show neighborhood names
+        var info = L.control();
+
+        info.onAdd = function (map) {
+            this._div = L.DomUtil.create('div', 'info');
+            this.update();
+            return this._div;
+        };
+
+        info.update = function (props) {
+            if (props) {
+                // Get the ex data for this neighborhood
+                var ex = getExByNeighborhood(props.name);
+                
+                if (ex) {
+                    this._div.innerHTML = 
+                        '<h4>' + ex.name + '</h4>' +
+                        '<div class="ex-details">' +
+                        '<p><strong>Age:</strong> ' + ex.age + '</p>' +
+                        '<p><strong>Job:</strong> ' + ex.job + '</p>' +
+                        '<p><strong>Religion:</strong> ' + ex.religion + '</p>' +
+                        '<p><strong>Our Eat Spot:</strong> ' + ex.our_eat_spot + '</p>' +
+                        '<p><strong>Music Genre:</strong> ' + ex.most_loved_music_genre + '</p>' +
+                        '<p><strong>Breakup Song:</strong> ' + ex.most_listened_to_breakup_song + '</p>' +
+                        '</div>';
+                } else {
+                    this._div.innerHTML = '<h4>' + props.name + '</h4><p>' + props.borough + '</p>';
+                }
+            } else {
+                this._div.innerHTML = '<h4>Hover over neighborhood box</h4>';
+            }
+        };
+
+        info.addTo(map);
+    </script>
 </body>
 </html>
