@@ -1,0 +1,28 @@
+html, body {
+    margin: 0;
+    padding: 10px;
+     text-align: center;
+    background-color: #8fb9d9;
+    font-family: Arial, sans-serif;
+    
+}
+    .yougurt_section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 70vh;
+    gap: 20px;
+}
+
+/* I had to use claude here as I was having issues aligning my image and it just would not center properly + it had been awhile since I created a style sheet */
+.yogurtimage{
+    width: 40%;
+    height:auto;
+    max-width: 100%;
+    object-fit: contain;
+   display: block;
+    position: relative;
+    left: 22.95%;
+    transform: translateX(-50%)
+}
